@@ -8,7 +8,7 @@ on:
     inputs:
       value:
         type: number
-        required: true
+        required: false
         default: 42
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
 
     steps:
       - name: echo
-        run: echo ${{ inputs.value }}
+        run: echo "value = ${{ inputs.value }}""
