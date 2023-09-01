@@ -14,7 +14,9 @@ on:
 jobs:
   trigger-job:
     name: TRIGGER
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latestoutputs:
+    # Map the step outputs to job outputs
+    value: ${{steps.out-data.outputs.value}}
 
     steps:    
       - name: Set color
@@ -27,7 +29,7 @@ jobs:
 
       - name: echo
         run: echo "trigger value = ${{ inputs.value }}"
-      - name: output
+      - name: set out-data
         id: out-data
         run: |
           echo "value=${{ inputs.value }}" >> "$GITHUB_OUTPUT"
@@ -37,7 +39,7 @@ jobs:
         run: |
           echo "trigger value = ${{ steps.out-data.outputs.value }}"
           echo "trigger value = $VALUE"
-      - name: generate secret
+      - name: set item
         shell: bash
         run: |
           echo "item=${{ steps.out-data.outputs.value }}" >> "$GITHUB_OUTPUT"  
@@ -52,5 +54,5 @@ jobs:
           echo "trigger value = ${{ needs.trigger-job.outputs.value }}"
           echo "trigger value = ${{ needs.trigger-job.out-data.outputs.value }}"
           echo "trigger value = ${{ needs.out-data.outputs.value }}"
-          echo "trigger value = ${{ needs.trigger-job.outputs.item }}"
+          echo "trigger item = ${{ needs.trigger-job.outputs.item }}"
     
