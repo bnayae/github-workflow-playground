@@ -21,3 +21,5 @@ jobs:
         run: echo "trigger value = ${{ inputs.value }}"
       - name: output
         run: echo "{value}={${{ inputs.value }}}" >> $GITHUB_OUTPUT
+      - name: output
+        run: echo "val=${{ inputs.value }}" >> $GITHUB_OUTPUT

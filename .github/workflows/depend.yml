@@ -12,8 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: echo
+      - name: echo 1
         run: |
             echo "depend value = ${{ github.event.workflow_run.value }}"
             echo "depend input = ${{ github.event.workflow_run.inputs.value }}"
             echo "depend output = ${{ github.event.workflow_run.outputs.value }}"
+      - name: echo 2
+        run: |
+            echo "depend value = ${{ github.event.workflow_run.val }}"
+            echo "depend output = ${{ github.event.workflow_run.outputs.val }}"
