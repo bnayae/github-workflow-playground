@@ -1,0 +1,16 @@
+name: depend
+on:
+    workflow_run:
+        workflows: [trigger]
+        types:
+          - completed
+    
+
+jobs:
+  depent-job:
+    name: DEPEND
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: echo
+        run: echo ${{ trigger.inputs.value }}

@@ -1,0 +1,21 @@
+name: trigger
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      value:
+        type: number
+        required: true
+        default: 42
+
+jobs:
+  trigger-job:
+    name: TRIGGER
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: echo
+        run: echo ${{ inputs.value }}
