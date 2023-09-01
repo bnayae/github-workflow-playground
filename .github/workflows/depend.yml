@@ -13,4 +13,4 @@ jobs:
 
     steps:
       - name: echo
-        run: echo ${{ trigger.inputs.value }}
+      run: echo "depend value = ${{ inputs.value }}"
