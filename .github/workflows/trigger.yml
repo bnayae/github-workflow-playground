@@ -20,9 +20,14 @@ jobs:
       - name: echo
         run: echo "trigger value = ${{ inputs.value }}"
       - name: output
-        run: echo "val=${{ inputs.value }}" >> $GITHUB_OUTPUT
-      - name: output
-        run: echo "value=${{ inputs.value }}" >> "$GITHUB_OUTPUT"
+        id: out-data
+        run: |
+          echo "val=${{ inputs.value }}" >> $GITHUB_OUTPUT
+          echo "value=${{ inputs.value }}" >> "$GITHUB_OUTPUT"
+      - name: echo out
+        run: |
+          echo "trigger value = ${{ steps.out-data.inputs.value }}"
+          echo "trigger val = ${{ steps.out-data.inputs.val }}"
   need-job:
     name: NEEDS
     needs: trigger-job
@@ -30,6 +35,8 @@ jobs:
     steps:
       - name: echo
         run: |
-          echo "trigger value = ${{ needs.trigger-job.inputs.value }}"
-          echo "trigger value = ${{ needs.trigger-job.inputs.val }}"
+          echo "trigger value = ${{ needs.trigger-job.value }}"
+          echo "trigger val = ${{ needs.trigger-job.val }}"
+          echo "trigger value = ${{ needs.trigger-job.out-data.value }}"
+          echo "trigger val = ${{ needs.trigger-job.out-data.val }}"
     
