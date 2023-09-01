@@ -21,3 +21,7 @@ jobs:
         run: |
             echo "depend value = ${{ github.event.workflow_run.val }}"
             echo "depend output = ${{ github.event.workflow_run.outputs.val }}"
+            echo "depend value = ${{ github.event.workflow_run.trigger-job.val }}"
+            echo "depend output = ${{ github.event.workflow_run.trigger-job.outputs.val }}"
+            echo "depend value = ${{ github.event.workflow_run.trigger-job.output.val }}"
+            echo "depend output = ${{ github.event.workflow_run.trigger-job.outputs.output.val }}"
