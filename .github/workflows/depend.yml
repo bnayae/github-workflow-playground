@@ -7,10 +7,10 @@ on:
     
 
 jobs:
-  depent-job:
+  depend-job:
     name: DEPEND
     runs-on: ubuntu-latest
 
     steps:
       - name: echo
-      run: echo "depend value = ${{ github.event.workflow_run.value }}"
+        run: echo "depend value = ${{ github.event.workflow_run.value }}"
