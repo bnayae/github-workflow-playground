@@ -13,4 +13,4 @@ jobs:
 
     steps:
       - name: echo
-      run: echo "depend value = ${{ github.event.inputs.value }}"
+      run: echo "depend value = ${{ github.event.workflow_run.value }}"
