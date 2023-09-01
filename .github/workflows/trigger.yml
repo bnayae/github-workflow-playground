@@ -10,14 +10,11 @@ on:
         type: number
         required: false
         default: 42
-
+        
 jobs:
   trigger-job:
     name: TRIGGER
     runs-on: ubuntu-latest
-    outputs:
-      # Map the step outputs to job outputs
-      value: ${{steps.out-data.outputs.value}}
 
     steps:    
       - name: Set color
@@ -45,6 +42,10 @@ jobs:
         run: |
           echo "item=${{ steps.out-data.outputs.value }}" >> "$GITHUB_OUTPUT"  
 
+    outputs:
+      # Map the step outputs to job outputs
+      value: ${{steps.out-data.outputs.value}}
+
   need-job:
     name: NEEDS
     needs: trigger-job
@@ -53,7 +54,6 @@ jobs:
       - name: echo
         run: |
           echo "trigger value = ${{ needs.trigger-job.outputs.value }}"
-          echo "trigger value = ${{ needs.trigger-job.out-data.outputs.value }}"
-          echo "trigger value = ${{ needs.out-data.outputs.value }}"
-          echo "trigger item = ${{ needs.trigger-job.outputs.item }}"
-    
+
+
+
