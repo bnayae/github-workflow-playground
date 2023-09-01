@@ -37,6 +37,11 @@ jobs:
         run: |
           echo "trigger value = ${{ steps.out-data.outputs.value }}"
           echo "trigger value = $VALUE"
+      - name: generate secret
+        shell: bash
+        run: |
+          echo "item=${{ steps.out-data.outputs.value }}" >> "$GITHUB_OUTPUT"  
+
   need-job:
     name: NEEDS
     needs: trigger-job
@@ -47,4 +52,5 @@ jobs:
           echo "trigger value = ${{ needs.trigger-job.outputs.value }}"
           echo "trigger value = ${{ needs.trigger-job.out-data.outputs.value }}"
           echo "trigger value = ${{ needs.out-data.outputs.value }}"
+          echo "trigger value = ${{ needs.trigger-job.outputs.item }}"
     
