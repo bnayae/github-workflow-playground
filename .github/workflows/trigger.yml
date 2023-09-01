@@ -37,10 +37,10 @@ jobs:
         run: |
           echo "trigger value = ${{ steps.out-data.outputs.value }}"
           echo "trigger value = $VALUE"
-      - name: set item
-        shell: bash
-        run: |
-          echo "item=${{ steps.out-data.outputs.value }}" >> "$GITHUB_OUTPUT"  
+      # - name: set item
+      #   shell: bash
+      #   run: |
+      #     echo "item=${{ steps.out-data.outputs.value }}" >> "$GITHUB_OUTPUT"  
 
     outputs:
       # Map the step outputs to job outputs
