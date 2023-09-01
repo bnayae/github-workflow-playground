@@ -14,9 +14,10 @@ on:
 jobs:
   trigger-job:
     name: TRIGGER
-    runs-on: ubuntu-latestoutputs:
-    # Map the step outputs to job outputs
-    value: ${{steps.out-data.outputs.value}}
+    runs-on: ubuntu-latest
+    outputs:
+      # Map the step outputs to job outputs
+      value: ${{steps.out-data.outputs.value}}
 
     steps:    
       - name: Set color
