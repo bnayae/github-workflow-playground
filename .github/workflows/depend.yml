@@ -16,12 +16,15 @@ jobs:
       mult: ${{steps.out_generator.outputs.mult}}
 
     steps:
-      - name: context
-        run: |
-            echo "context = '${{ toJSON(github) }}'"
-            echo "context = '${{ toJSON(vars) }}'"
-
       - name: print outputs 
         run: |
             echo "depend value = ${{ github.event.workflow_run.out-data.outputs.value }}"
             echo "depend value = ${{ github.event.workflow_run.trigger-job.out-data.outputs.value }}"
+
+      - name: vars
+        run: |
+            echo "context = '${{ toJSON(vars) }}'"
+
+      - name: context sha
+        run: |
+            echo "context = '${{ toJSON(github).sha }}'"
