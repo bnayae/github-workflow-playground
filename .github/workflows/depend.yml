@@ -19,6 +19,13 @@ jobs:
       - name: print outputs 
         run: |
             echo "depend value = ${{ github.event.workflow_run.trigger-job.outputs.value }}"
+            echo "depend value = ${{ github.workflow_run.trigger-job.outputs.value }}"
+            echo "-----------------------------------------------------------------"
+            echo "Output:"
+            echo "${{ toJSON(github.event.workflow_run.trigger-job.outputs) }}"
+            echo "-----------------------------------------------------------------"
+            echo "workflow_run:"
+            echo "${{ toJSON(github.event.workflow_run.trigger-job.outputs) }}"
 
       - name: context
         run: |
