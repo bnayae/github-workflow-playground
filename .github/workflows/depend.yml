@@ -22,17 +22,17 @@ jobs:
             echo "depend value = ${{ github.workflow_run.trigger-job.outputs.value }}"
             echo "-----------------------------------------------------------------"
             echo "inputs:"
-            echo "${{ toJSON(github.event.workflow_run.inputs) }}"
-            echo "-----------------------------------------------------------------"
-            echo "workflow_run:"
-            echo "${{ toJSON(github.event.workflow_run) }}"
+            echo "${{ toJSON(github.workflow_run.inputs) }}"
+          # echo "-----------------------------------------------------------------"
+          # echo "workflow_run:"
+          # echo "${{ toJSON(github.event.workflow_run) }}"
 
       - name: context
         run: |
             echo "context.sha = '${{ toJSON(github.sha) }}'"
             echo "-----------------------------------------------------------------"
             echo "context.workflow = '${{ toJSON(github.workflow) }}'"
-            echo "-----------------------------------------------------------------"
-            echo "context = '${{ toJSON(github) }}'"
+          # echo "-----------------------------------------------------------------"
+          # echo "context = '${{ toJSON(github) }}'"
           # echo "-----------------------------------------------------------------"
           # echo "context.event = '${{ toJSON(github.event) }}'"
