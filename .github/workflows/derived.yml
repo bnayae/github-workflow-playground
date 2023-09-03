@@ -1,0 +1,28 @@
+name: derived
+on:
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   branches: [main]
+  workflow_dispatch:
+      inputs:
+        a:
+          type: number
+          required: true
+        b:
+          type: number
+          required: true
+        
+jobs:
+  derived:
+    name: "Call base workflow"
+    uses: ./.github/workflows/base.yml
+  job2:
+    needs: derived
+    steps:
+      - name: "Print my_var"
+        run: echo mult_out [${{needs.derived.outputs.mult_out}}]
+
+
+
+

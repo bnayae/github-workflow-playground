@@ -5,11 +5,11 @@ on:
   # pull_request:
   #   branches: [main]
   workflow_dispatch:
-    inputs:
-      value:
-        type: number
-        required: false
-        default: 42
+      inputs:
+        value:
+          type: number
+          required: false
+          default: 42
         
 jobs:
   trigger-job:

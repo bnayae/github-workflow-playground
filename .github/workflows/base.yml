@@ -1,16 +1,25 @@
-name: depend
+name: base
 on:
-  workflow_run:
-      workflows: [trigger]
-      types:
-        - completed
+  workflow_call:
+    inputs:
+      a:
+        type: number
+        required: true
+      b:
+        type: number
+        required: true
+    # Map the workflow outputs to job outputs
+    outputs:
+      mult_out:
+        description: "The first output string"
+        value: ${{jobs.base-job.outputs.mult}}
 
 # https://tech.europace.de/post/github-actions-output-variables-how-to/
   # - Get output variables between workflows
 
 jobs:
-  depend-job:
-    name: DEPEND
+  base-job:
+    name: base
     runs-on: ubuntu-latest
     outputs:
       mult: ${{steps.out_generator.outputs.mult}}
@@ -18,8 +27,15 @@ jobs:
     steps:
       - name: echo 
         run: |
-            echo "depend value = ${{ github.event.workflow_run.out-data.outputs.value }}"
-            echo "depend value = ${{ github.event.workflow_run.trigger-job.out-data.outputs.value }}"
+            echo "base value = ${{ github.event.workflow_run.out-data.outputs.value }}"
+            echo "base value = ${{ github.event.workflow_run.trigger-job.out-data.outputs.value }}"
+      - name: out generator 
+        id: out_generator
+        env:
+          A: ${{ inputs.a }}
+          B: ${{ inputs.b }}
+        run: |
+          echo "mult=$(($A*$B))" >> $GITHUB_OUTPUT 
 
 
 # ########## WORKFLOW 1 ##########
