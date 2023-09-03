@@ -16,49 +16,12 @@ jobs:
       mult: ${{steps.out_generator.outputs.mult}}
 
     steps:
-      - name: echo 
+      - name: context
+        run: |
+            echo "context = '${{ toJSON(github) }}'"
+            echo "context = '${{ toJSON(vars) }}'"
+
+      - name: print outputs 
         run: |
             echo "depend value = ${{ github.event.workflow_run.out-data.outputs.value }}"
             echo "depend value = ${{ github.event.workflow_run.trigger-job.out-data.outputs.value }}"
-
-
-# ########## WORKFLOW 1 ##########
-
-# on:
-#   workflow_dispatch:
-
-# jobs:
-#   job1:
-#     name: "Call other workflow"
-#     uses: MY_OWNER/MY_REPO/.github/workflows/my_workflow.yml@main
-#   job2:
-#     needs: job1
-#     steps:
-#       - name: "Print my_var"
-#         run: echo my_var [${{needs.job1.outputs.my_var}}]
-
-# ########## WORKFLOW 2 ##########
-
-# on:
-#   workflow_call:
-#     # Map the workflow outputs to job outputs
-#     outputs:
-#       my_var:
-#         description: "The first output string"
-#         value: ${{jobs.my_job.outputs.my_var}}
-# jobs:
-#   my_job:
-#     # Map the job outputs to step outputs
-#     outputs:
-#       my_var: ${{steps.my_step.outputs.my_var}}
-#     steps:
-#       - name: "Example output creation"
-#         id: "my_step"
-#         run: |
-#           my_var="Hello World"
-#           echo "Output [$my_var]"
-#           echo "my_var=$my_var" >> $GITHUB_OUTPUT          
-#   my_second_job:
-#     needs: my_job
-#     steps:
-#       - run: echo my_var [${{needs.my_job.outputs.my_var}}]
