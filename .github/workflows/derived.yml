@@ -5,20 +5,24 @@ on:
   # pull_request:
   #   branches: [main]
   workflow_dispatch:
-      inputs:
-        a:
-          type: number
-          required: true
-        b:
-          type: number
-          required: true
+    inputs:
+      a:
+        type: number
+        required: true
+      b:
+        type: number
+        required: true
         
 jobs:
   derived:
     name: "Call base workflow"
     uses: ./.github/workflows/base.yml
-  job2:
+    with:
+      a: ${{ inputs.a }}
+      b: ${{ inputs.b }}
+  derived-step-2:
     needs: derived
+    runs-on: ubuntu-latest
     steps:
       - name: "Print my_var"
         run: echo mult_out [${{needs.derived.outputs.mult_out}}]
