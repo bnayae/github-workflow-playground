@@ -22,15 +22,11 @@ jobs:
     name: base-cast-issue
     runs-on: ubuntu-latest
     outputs:
-      mult: ${{steps.out_generator.outputs.mult}}
+      mult: ${{steps.mult-step.outputs.mult}}
 
     steps:
-      - name: echo 
-        run: |
-            echo "base-cast-issue value = ${{ github.event.workflow_run.out-data.outputs.value }}"
-            echo "base-cast-issue value = ${{ github.event.workflow_run.trigger-job.out-data.outputs.value }}"
-      - name: out generator 
-        id: out_generator
+      - name: mult 
+        id: mult-step
         env:
           A: ${{ inputs.a }}
           B: ${{ inputs.b }}

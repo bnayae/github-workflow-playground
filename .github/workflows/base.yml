@@ -13,8 +13,11 @@ on:
     # Map the workflow outputs to job outputs
     outputs:
       joined_out:
-        description: "The first output string"
+        description: "join output"
         value: ${{jobs.base-job.outputs.joined}}
+      mult_out:
+        description: "mult output"
+        value: ${{jobs.base-job.outputs.mult}}
 
 # https://tech.europace.de/post/github-actions-output-variables-how-to/
   # - Get output variables between workflows
@@ -24,21 +27,25 @@ jobs:
     name: base
     runs-on: ubuntu-latest
     outputs:
-      joined: ${{steps.out_generator.outputs.joined}}
+      joined: ${{steps.join-step.outputs.joined}}
+      mult: ${{steps.mult-step.outputs.mult}}
 
     steps:
-      - name: echo 
-        run: |
-            echo "base value = ${{ github.event.workflow_run.out-data.outputs.value }}"
-            echo "base value = ${{ github.event.workflow_run.trigger-job.out-data.outputs.value }}"
-      - name: out generator 
-        id: out_generator
+      - name: join
+        id: join-step
         env:
           A: ${{ inputs.a }}
           B: ${{ inputs.b }}
         run: |
           echo "joined=$A...$B" >> $GITHUB_OUTPUT 
-
+      - name: mult 
+        id: mult-step
+        env:
+          A: ${{ inputs.a }}
+          B: ${{ inputs.b }}
+        run: |
+          echo "mult=$(($A*$B))" >> $GITHUB_OUTPUT 
+  
 
 # ########## WORKFLOW 1 ##########
 

@@ -40,9 +40,10 @@ jobs:
     needs: derived
     runs-on: ubuntu-latest
     steps:
-      - name: "Print my_var"
+      - name: "Print outputs"
         run: |
           echo join_out [${{needs.derived.outputs.joined_out}}]
+          echo mult_out [${{needs.derived.outputs.mult_out}}]
 
 
 
