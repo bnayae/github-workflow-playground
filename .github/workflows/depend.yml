@@ -20,10 +20,12 @@ jobs:
         run: |
             echo "depend value = ${{ github.event.workflow_run.trigger-job.outputs.value }}"
 
-      - name: context sha
+      - name: context
         run: |
             echo "context.sha = '${{ toJSON(github.sha) }}'"
             echo "-----------------------------------------------------------------"
             echo "context.workflow = '${{ toJSON(github.workflow) }}'"
             echo "-----------------------------------------------------------------"
-            echo "context.workflow_run.actor = '${{ toJSON(github.workflow_run.actor) }}'"
+            echo "context.workflow_run = '${{ toJSON(github.workflow_run) }}'"
+            echo "-----------------------------------------------------------------"
+            echo "context = '${{ toJSON(github.workflow_run.actor) }}'"
