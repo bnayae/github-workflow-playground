@@ -1,0 +1,39 @@
+name: base-cast-issue
+on:
+  workflow_call:
+    inputs:
+      a:
+        type: number
+        required: true
+      b:
+        type: number
+        required: true
+    # Map the workflow outputs to job outputs
+    outputs:
+      mult_out:
+        description: "The first output string"
+        value: ${{jobs.base-cast-issue-job.outputs.mult}}
+
+# https://tech.europace.de/post/github-actions-output-variables-how-to/
+  # - Get output variables between workflows
+
+jobs:
+  base-cast-issue-job:
+    name: base-cast-issue
+    runs-on: ubuntu-latest
+    outputs:
+      mult: ${{steps.out_generator.outputs.mult}}
+
+    steps:
+      - name: echo 
+        run: |
+            echo "base-cast-issue value = ${{ github.event.workflow_run.out-data.outputs.value }}"
+            echo "base-cast-issue value = ${{ github.event.workflow_run.trigger-job.out-data.outputs.value }}"
+      - name: out generator 
+        id: out_generator
+        env:
+          A: ${{ inputs.a }}
+          B: ${{ inputs.b }}
+        run: |
+          echo "mult=$(($A*$B))" >> $GITHUB_OUTPUT 
+

@@ -3,16 +3,18 @@ on:
   workflow_call:
     inputs:
       a:
-        type: number
+        type: string
+        # type: number
         required: true
       b:
-        type: number
+        type: string
+        # type: number
         required: true
     # Map the workflow outputs to job outputs
     outputs:
-      mult_out:
+      joined_out:
         description: "The first output string"
-        value: ${{jobs.base-job.outputs.mult}}
+        value: ${{jobs.base-job.outputs.joined}}
 
 # https://tech.europace.de/post/github-actions-output-variables-how-to/
   # - Get output variables between workflows
@@ -22,7 +24,7 @@ jobs:
     name: base
     runs-on: ubuntu-latest
     outputs:
-      mult: ${{steps.out_generator.outputs.mult}}
+      joined: ${{steps.out_generator.outputs.joined}}
 
     steps:
       - name: echo 
@@ -35,7 +37,7 @@ jobs:
           A: ${{ inputs.a }}
           B: ${{ inputs.b }}
         run: |
-          echo "mult=$(($A*$B))" >> $GITHUB_OUTPUT 
+          echo "joined=$A...$B" >> $GITHUB_OUTPUT 
 
 
 # ########## WORKFLOW 1 ##########

@@ -1,4 +1,4 @@
-name: derived
+name: derived-cast-issue
 on:
   # push:
   #   branches: [main]
@@ -14,6 +14,22 @@ on:
         required: true
         
 jobs:
+  derived-cast-issue:
+    name: "Call base workflow"
+    uses: ./.github/workflows/base-cast-issue.yml
+    with:
+      # a: ${{ inputs.a }}
+      # b: ${{ inputs.b }}
+      a: 4
+      b: 3
+  derived-cast-issue-step-2:
+    needs: derived-cast-issue
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Print my_var"
+        run: |
+          echo mult_out [${{needs.derived-cast-issue.outputs.mult_out}}]
+          
   derived:
     name: "Call base workflow"
     uses: ./.github/workflows/base.yml
